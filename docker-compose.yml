@@ -1,0 +1,60 @@
+services:
+  # Backend - Serveur Node.js + Socket.io
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: isometric-game-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - CLIENT_URL=http://localhost:8080
+    networks:
+      - game-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    labels:
+      - "com.isometric-game.component=backend"
+      - "com.isometric-game.description=Game server with Socket.io"
+
+  # Frontend - Client Nginx
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: isometric-game-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - game-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    labels:
+      - "com.isometric-game.component=frontend"
+      - "com.isometric-game.description=Game client served by Nginx"
+
+networks:
+  game-network:
+    driver: bridge
+    name: isometric-game-network
+
+# Optionnel: volumes pour la persistence (logs, etc.)
+volumes:
+  backend-logs:
+    name: backend-logs
+  frontend-logs:
+    name: frontend-logs

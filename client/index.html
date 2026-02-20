@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mini Jeu Isométrique 3D</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="container"></div>
+
+  <!-- Joystick virtuel pour écrans tactiles -->
+  <div id="joystick-container">
+    <div id="joystick-base">
+      <div id="joystick-stick"></div>
+    </div>
+  </div>
+
+  <!-- Three.js depuis CDN - Version compatible -->
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+
+  <!-- Socket.io client depuis CDN -->
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+
+  <!-- Configuration serveur -->
+  <script>
+    // URL du serveur backend - configurable via variable d'environnement
+    window.SOCKET_SERVER_URL = window.location.hostname === 'localhost' 
+      ? 'http://localhost:3000' 
+      : 'http://' + window.location.hostname + ':3000';
+    
+    console.log('🔧 Three.js chargé:', typeof THREE);
+  </script>
+
+  <!-- Code du jeu - Mode compatible -->
+  <script src="src/network.js?v=2"></script>
+  <script src="src/interaction.js?v=2"></script>
+  <script src="src/game.js?v=2"></script>
+  <script src="src/main.js?v=2"></script>
+</body>
+</html>

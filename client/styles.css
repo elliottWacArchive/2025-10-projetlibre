@@ -1,0 +1,22 @@
+/*
+ * Styles principaux - Jeu Isométrique 3D
+ * Architecture modulaire pour meilleure maintenabilité
+ */
+
+/* Base et reset */
+@import url('styles/base.css');
+
+/* Interface utilisateur */
+@import url('styles/ui.css');
+
+/* Contrôles tactiles */
+@import url('styles/joystick.css');
+
+/* Système d'interactions */
+@import url('styles/interactions.css');
+
+/* Messagerie instantanée */
+@import url('styles/messaging.css');
+
+/* Composants réutilisables */
+@import url('styles/components.css');
