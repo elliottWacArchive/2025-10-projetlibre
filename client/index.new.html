@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mini Jeu Isométrique 3D</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="container"></div>
+
+  <!-- Joystick virtuel pour écrans tactiles -->
+  <div id="joystick-container">
+    <div id="joystick-base">
+      <div id="joystick-stick"></div>
+    </div>
+  </div>
+
+  <!-- Three.js depuis CDN -->
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+
+  <!-- Socket.io client depuis CDN -->
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+
+  <!-- Configuration serveur -->
+  <script>
+    window.SOCKET_SERVER_URL = window.location.hostname === 'localhost' 
+      ? 'http://localhost:3000' 
+      : 'http://' + window.location.hostname + ':3000';
+    console.log('🔧 Three.js chargé:', typeof THREE);
+  </script>
+
+  <!-- Core -->
+  <script src="src/core/Scene.js"></script>
+  <script src="src/core/Renderer.js"></script>
+
+  <!-- Entities -->
+  <script src="src/entities/Player.js"></script>
+  <script src="src/entities/OtherPlayer.js"></script>
+  <script src="src/entities/Ground.js"></script>
+
+  <!-- Input -->
+  <script src="src/input/KeyboardController.js"></script>
+  <script src="src/input/JoystickController.js"></script>
+  <script src="src/input/InputManager.js"></script>
+
+  <!-- Network -->
+  <script src="src/network/SocketClient.js"></script>
+  <script src="src/network/PlayerSync.js"></script>
+  <script src="src/network/ChatManager.js"></script>
+
+  <!-- UI -->
+  <script src="src/ui/ConnectionStatus.js"></script>
+  <script src="src/ui/Notifications.js"></script>
+  <script src="src/ui/MessageDialog.js"></script>
+  <script src="src/ui/InteractionMenu.js"></script>
+
+  <!-- Game (doit être chargé après tous les modules) -->
+  <script src="src/core/Game.js"></script>
+
+  <!-- Main (point d'entrée) -->
+  <script src="src/main.new.js"></script>
+</body>
+</html>
